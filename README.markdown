@@ -3,10 +3,14 @@ Jekyll.vim
 
 jekyll.vim:  Blogging from the command line should not be tedious.
 
+This script is intended to automate the process of creating and editing [Jekyll](http://jekyllrb.com/) blog posts from within [vim](http://www.vim.org/).
+
 Introduction
 ============
 
-Install in ~/.vim, or in ~\vimfiles if you're on Windows and feeling lucky.
+Install in ~/.vim, you can use the rake task to do this quickly:
+
+    rake install
 
 Set the path to your Jekyll Blog in your vimrc:
 
