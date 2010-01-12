@@ -1,0 +1,40 @@
+*jekyll.txt*  Blogging from the command line should not be tedious
+
+Author: Chris Sexton                            *jekyll-author*
+License: Same terms as Vim itself (see |license|)
+
+This plugin is only available if 'compatible' is not set.
+
+==============================================================================
+INTRODUCTION                                    *jekyll*
+
+Install in ~/.vim, or in ~\vimfiles if you're on Windows and feeling lucky.
+
+Set the path to your Jekyll Blog in your vimrc. 
+
+Example:
+    let g:jekyll_path = "/path/to/jekyll/blog"
+
+You may also want to ad a few mappings to stream line the behavior:
+    map <Leader>jp  :JekyllPost<CR>
+    map <Leader>jl  :JekyllList<CR>
+    
+
+==============================================================================
+COMMANDS                                        *jekyll-commands*
+
+                                                *jekyll-:JekyllList*
+:JekyllList             List Jekyll posts.
+
+                                                *jekyll-:JekyllPost*
+:JekyllPost             Create a new Jekyll Post
+
+==============================================================================
+ABOUT                                           *jekyll-about*
+
+Grab the latest version or report a bug on Github:
+
+http://github.com/csexton/jekyll.vim
+
+==============================================================================
+ vim:tw=78:et:ft=help:norl:
