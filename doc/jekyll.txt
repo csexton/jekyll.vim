@@ -16,8 +16,10 @@ Example:
     let g:jekyll_path = "/path/to/jekyll/blog"
 
 You may also want to ad a few mappings to stream line the behavior:
-    map <Leader>jp  :JekyllPost<CR>
+    map <Leader>jn  :JekyllPost<CR>
     map <Leader>jl  :JekyllList<CR>
+    map <Leader>jc  :JekyllCommit<CR>
+    map <Leader>jp  :JekyllPublish<CR>
 
 ==============================================================================
 COMMANDS                                        *jekyll-commands*
@@ -27,6 +29,15 @@ COMMANDS                                        *jekyll-commands*
 
                                                 *jekyll-:JekyllPost*
 :JekyllPost             Create a new Jekyll Post
+
+If you are using git to store your blog, then you can use the following 
+commands:
+
+                                                *jekyll-:JekyllCommit*
+:JekyllCommit          Add and commit all the modified posts
+
+                                                *jekyll-:JekyllPublish*
+:JekyllPublish         Push the changes to the remote origin
 
 ==============================================================================
 ABOUT                                           *jekyll-about*

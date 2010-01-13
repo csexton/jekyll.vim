@@ -18,8 +18,10 @@ Set the path to your Jekyll Blog in your vimrc:
 
 You may also want to ad a few mappings to stream line the behavior:
 
-    map <Leader>jp  :JekyllPost<CR>
+    map <Leader>jn  :JekyllPost<CR>
     map <Leader>jl  :JekyllList<CR>
+    map <Leader>jc  :JekyllCommit<CR>
+    map <Leader>jp  :JekyllPublish<CR>
 
 Commands
 ========
@@ -31,6 +33,17 @@ List Jekyll posts:
 Create a new Jekyll Post:
 
     :JekyllPost
+
+If you are using git to store your blog, then you can use the following commands to speed that up.
+
+Add and commit all the modified posts:
+
+    :JekyllCommit
+
+Pushe the changes to the remote origin:
+
+    :JekyllPublish
+
 
 LICENSE
 =======
