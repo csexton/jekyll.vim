@@ -49,3 +49,5 @@ LICENSE
 =======
 
 License: Same terms as Vim itself (see [license](http://vimdoc.sourceforge.net/htmldoc/uganda.html#license))
+
+:-)
