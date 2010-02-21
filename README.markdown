@@ -16,6 +16,10 @@ Set the path to your Jekyll Blog in your vimrc:
 
     let g:jekyll_path = "/path/to/jekyll/blog"
 
+The default post suffix is "markdown". You can override this if you like:
+
+    let g:jekyll_post_suffix = "textile"
+
 You may also want to ad a few mappings to stream line the behavior:
 
     map <Leader>jn  :JekyllPost<CR>
