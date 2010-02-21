@@ -35,6 +35,15 @@ function! s:ExecuteInTree(cmd) abort
   endtry
 endfunction
 
+function s:EscapeTitle(str)
+    let str = a:str
+    let str = tolower(str)
+    let str = substitute(str, ' ', '-', 'g')
+    let str = substitute(str, '"', '-', 'g')
+    let str = substitute(str, "'", '-', 'g')
+    return str
+endfunction
+
 " Commands
 function JekyllList()
     exe "e " . g:jekyll_path . "/_posts"
@@ -44,7 +53,7 @@ command! -nargs=? -range=% JekyllList :call JekyllList()
 function JekyllPost()
     let title = input("Post title: ")
     if title != ''
-        let file_name = strftime("%Y-%m-%d-") . substitute(tolower(title), ' ', '-', 'g') . ".markdown"
+        let file_name = strftime("%Y-%m-%d-") . s:EscapeTitle(title) . ".markdown"
         echo "Making that post " . file_name
         exe "e " . g:jekyll_path . "/_posts/" . file_name
         let err = append(0, ['---', 'layout: post', 'title: ' . title, '---', ''])
