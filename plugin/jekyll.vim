@@ -19,6 +19,11 @@ if !exists('g:jekyll_path')
     let g:jekyll_path = $HOME . "/src/blog"
 endif
 
+" Syntax highlighting for YAML front matter
+execute "autocmd BufNewFile,BufRead " . g:jekyll_path . "/* syn match jekyllYamlFrontmatter /\\%^---\\_.\\{-}---$/ contains=@Spell"
+high link jekyllYamlFrontmatter Comment
+
+" Utility Functions
 function! s:ExecuteInTree(cmd) abort
   let cd = exists('*haslocaldir') && haslocaldir() ? 'lcd ' : 'cd '
   let dir = getcwd()
@@ -30,6 +35,7 @@ function! s:ExecuteInTree(cmd) abort
   endtry
 endfunction
 
+" Commands
 function JekyllList()
     exe "e " . g:jekyll_path . "/_posts"
 endfunction
