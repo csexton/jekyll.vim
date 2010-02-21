@@ -35,7 +35,7 @@ Create a new Jekyll Post:
 
     :JekyllPost
 
-If you are using git to store your blog, consider installing Tim Pope's [vim-fugitive](http://github.com/tope/vim-fugitive) plugin. It allows you to use the following commands to speed things up.
+If you are using git to store your blog, consider installing Tim Pope's [vim-fugitive](http://github.com/tpope/vim-fugitive) plugin. It allows you to use the following commands to speed things up.
 
 Add and commit the current post:
 
