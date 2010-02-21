@@ -19,6 +19,10 @@ if !exists('g:jekyll_path')
     let g:jekyll_path = $HOME . "/src/blog"
 endif
 
+if !exists('g:jekyll_post_suffix')
+    let g:jekyll_post_suffix = "markdown"
+endif
+
 " Syntax highlighting for YAML front matter
 execute "autocmd BufNewFile,BufRead " . g:jekyll_path . "/* syn match jekyllYamlFrontmatter /\\%^---\\_.\\{-}---$/ contains=@Spell"
 high link jekyllYamlFrontmatter Comment
@@ -41,7 +45,7 @@ command! -nargs=? -range=% JekyllList :call JekyllList()
 function JekyllPost()
     let title = input("Post title: ")
     if title != ''
-        let file_name = strftime("%Y-%m-%d-") . s:EscapeTitle(title) . ".markdown"
+        let file_name = strftime("%Y-%m-%d-") . s:EscapeTitle(title) . "." . g:jekyll_post_suffix
         echo "Making that post " . file_name
         exe "e " . g:jekyll_path . "/_posts/" . file_name
         let err = append(0, ['---', 'layout: post', 'title: "' . title . '"', 'published: false', '---', ''])
