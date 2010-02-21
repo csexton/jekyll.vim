@@ -23,18 +23,6 @@ endif
 execute "autocmd BufNewFile,BufRead " . g:jekyll_path . "/* syn match jekyllYamlFrontmatter /\\%^---\\_.\\{-}---$/ contains=@Spell"
 high link jekyllYamlFrontmatter Comment
 
-" Utility Functions
-function! s:ExecuteInTree(cmd) abort
-  let cd = exists('*haslocaldir') && haslocaldir() ? 'lcd ' : 'cd '
-  let dir = getcwd()
-  try
-    execute cd.' `=g:jekyll_path`'
-    execute a:cmd
-  finally
-    execute cd.' `=dir`'
-  endtry
-endfunction
-
 function s:EscapeTitle(str)
     let str = a:str
     let str = tolower(str)
@@ -62,17 +50,6 @@ function JekyllPost()
     endif
 endfunction
 command! -nargs=? -range=% JekyllPost :call JekyllPost()
-
-function JekyllCommit()
-    let message = input("Commit Message: ")
-    call s:ExecuteInTree('!git add _posts/*.markdown && git commit -a -m "' . message . '"' )
-endfunction
-command! -nargs=? -range=% JekyllCommit :call JekyllCommit()
-
-function JekyllPublish()
-    call s:ExecuteInTree('!git push' )
-endfunction
-command! -nargs=? -range=% JekyllPublish :call JekyllPublish()
 
 let &cpo = s:cpo_save
 " }}}1

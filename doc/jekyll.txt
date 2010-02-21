@@ -15,11 +15,9 @@ Set the path to your Jekyll Blog in your vimrc.
 Example:
     let g:jekyll_path = "/path/to/jekyll/blog"
 
-You may also want to ad a few mappings to stream line the behavior:
+You may also want to add a few mappings to stream line the behavior:
     map <Leader>jn  :JekyllPost<CR>
     map <Leader>jl  :JekyllList<CR>
-    map <Leader>jc  :JekyllCommit<CR>
-    map <Leader>jp  :JekyllPublish<CR>
 
 By default all posts are created as drafts (published: false in the YAML), to
 publish that post simply delete that line.
@@ -33,14 +31,17 @@ COMMANDS                                        *jekyll-commands*
                                                 *jekyll-:JekyllPost*
 :JekyllPost             Create a new Jekyll Post
 
-If you are using git to store your blog, then you can use the following 
-commands:
+If you are using git to store your blog, consider installing Tim Pope's
+vim-fugitive plugin:
 
-                                                *jekyll-:JekyllCommit*
-:JekyllCommit          Add and commit all the modified posts
+http://github.com/tpope/vim-fugitive
 
-                                                *jekyll-:JekyllPublish*
-:JekyllPublish         Push the changes to the remote origin
+It allows you to use the following commands to speed things up.
+
+:Gwrite                 Add the current post to the index
+:Gcommit                Commit the changes to the repository
+
+:Git push               Push the changes to the remote origin
 
 ==============================================================================
 ABOUT                                           *jekyll-about*

@@ -20,8 +20,6 @@ You may also want to ad a few mappings to stream line the behavior:
 
     map <Leader>jn  :JekyllPost<CR>
     map <Leader>jl  :JekyllList<CR>
-    map <Leader>jc  :JekyllCommit<CR>
-    map <Leader>jp  :JekyllPublish<CR>
 
 
 By default all posts are created as drafts (published: false in the YAML), to publish that post simply delete that line.
@@ -37,15 +35,16 @@ Create a new Jekyll Post:
 
     :JekyllPost
 
-If you are using git to store your blog, then you can use the following commands to speed that up.
+If you are using git to store your blog, consider installing Tim Pope's [vim-fugitive](http://github.com/tope/vim-fugitive) plugin. It allows you to use the following commands to speed things up.
 
-Add and commit all the modified posts:
+Add and commit the current post:
 
-    :JekyllCommit
+    :Gwrite
+    :Gcommit
 
-Pushe the changes to the remote origin:
+Push the changes to the remote origin:
 
-    :JekyllPublish
+    :Git push
 
 
 LICENSE
