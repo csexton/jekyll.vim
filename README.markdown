@@ -23,6 +23,9 @@ You may also want to ad a few mappings to stream line the behavior:
     map <Leader>jc  :JekyllCommit<CR>
     map <Leader>jp  :JekyllPublish<CR>
 
+
+By default all posts are created as drafts (published: false in the YAML), to publish that post simply delete that line.
+
 Commands
 ========
 
