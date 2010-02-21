@@ -56,7 +56,7 @@ function JekyllPost()
         let file_name = strftime("%Y-%m-%d-") . s:EscapeTitle(title) . ".markdown"
         echo "Making that post " . file_name
         exe "e " . g:jekyll_path . "/_posts/" . file_name
-        let err = append(0, ['---', 'layout: post', 'title: ' . title, '---', ''])
+        let err = append(0, ['---', 'layout: post', 'title: "' . title . '"', 'published: false', '---', ''])
     else
         echo "You must specify a title"
     endif
