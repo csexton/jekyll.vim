@@ -40,7 +40,7 @@ endfunction
 function JekyllList()
     exe "e " . g:jekyll_path . "/_posts"
 endfunction
-command! -nargs=? -range=% JekyllList :call JekyllList()
+command! -nargs=0 JekyllList :call JekyllList()
 
 function JekyllPost(title)
     let title = a:title
@@ -56,14 +56,14 @@ function JekyllPost(title)
         echo "You must specify a title"
     endif
 endfunction
-command! -nargs=? -range=% JekyllPost :call JekyllPost(<q-args>)
+command! -nargs=? JekyllPost :call JekyllPost(<q-args>)
 
-function JekyllPublish()
-    if (!exists("g:loaded_fugitive") || !g:loaded_fugitive)
-        echo "Fugitive.vim is required for this, you can get it at github.com/tpope/vim-fugitive/"
-    endif
-endfunction
-command! -nargs=? -range=% JekyllPublish :call JekyllPublish()
+"function JekyllPublish()
+"    if (!exists("g:loaded_fugitive") || !g:loaded_fugitive)
+"        echo "Fugitive.vim is required for this, you can get it at github.com/tpope/vim-fugitive/"
+"    endif
+"endfunction
+"command! -nargs=? JekyllPublish :call JekyllPublish()
 
 let &cpo = s:cpo_save
 " }}}1
