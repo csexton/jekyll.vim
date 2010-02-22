@@ -42,8 +42,11 @@ function JekyllList()
 endfunction
 command! -nargs=? -range=% JekyllList :call JekyllList()
 
-function JekyllPost()
-    let title = input("Post title: ")
+function JekyllPost(title)
+    let title = a:title
+    if title == ''
+      let title = input("Post title: ")
+    endif
     if title != ''
         let file_name = strftime("%Y-%m-%d-") . s:EscapeTitle(title) . "." . g:jekyll_post_suffix
         echo "Making that post " . file_name
@@ -53,7 +56,14 @@ function JekyllPost()
         echo "You must specify a title"
     endif
 endfunction
-command! -nargs=? -range=% JekyllPost :call JekyllPost()
+command! -nargs=? -range=% JekyllPost :call JekyllPost(<q-args>)
+
+function JekyllPublish()
+    if (!exists("g:loaded_fugitive") || !g:loaded_fugitive)
+        echo "Fugitive.vim is required for this, you can get it at github.com/tpope/vim-fugitive/"
+    endif
+endfunction
+command! -nargs=? -range=% JekyllPublish :call JekyllPublish()
 
 let &cpo = s:cpo_save
 " }}}1
