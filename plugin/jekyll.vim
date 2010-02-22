@@ -36,6 +36,10 @@ function s:EscapeTitle(str)
     return str
 endfunction
 
+function s:EchoError(str)
+    echohl ErrorMsg | echo a:str | echohl NONE
+endfunction
+
 " Commands
 function JekyllList()
     exe "e " . g:jekyll_path . "/_posts"
@@ -53,14 +57,14 @@ function JekyllPost(title)
         exe "e " . g:jekyll_path . "/_posts/" . file_name
         let err = append(0, ['---', 'layout: post', 'title: "' . title . '"', 'published: false', '---', ''])
     else
-        echo "You must specify a title"
+        call s:EchoError("You must specify a title")
     endif
 endfunction
 command! -nargs=? JekyllPost :call JekyllPost(<q-args>)
 
 "function JekyllPublish()
 "    if (!exists("g:loaded_fugitive") || !g:loaded_fugitive)
-"        echo "Fugitive.vim is required for this, you can get it at github.com/tpope/vim-fugitive/"
+"        call s:EchoError("Fugitive.vim is required for this, you can get it at github.com/tpope/vim-fugitive/")
 "    endif
 "endfunction
 "command! -nargs=? JekyllPublish :call JekyllPublish()
