@@ -24,10 +24,10 @@ if !exists('g:jekyll_post_suffix')
 endif
 
 " Syntax highlighting for YAML front matter
-execute "autocmd BufNewFile,BufRead " . g:jekyll_path . "/* syn match jekyllYamlFrontmatter /\\%^---\\_.\\{-}---$/ contains=@Spell"
-high link jekyllYamlFrontmatter Comment
+"execute "autocmd BufNewFile,BufRead " . g:jekyll_path . "/* syn match jekyllYamlFrontmatter /\\%^---\\_.\\{-}---$/ contains=@Spell"
+"high link jekyllYamlFrontmatter Comment
 
-function s:EscapeTitle(str)
+function s:esctitle(str)
     let str = a:str
     let str = tolower(str)
     let str = substitute(str, ' ', '-', 'g')
@@ -36,8 +36,44 @@ function s:EscapeTitle(str)
     return str
 endfunction
 
-function s:EchoError(str)
-    echohl ErrorMsg | echo a:str | echohl NONE
+function! s:error(str)
+  echohl ErrorMsg
+  echomsg a:str
+  echohl None
+  let v:errmsg = a:str
+endfunction
+
+function! s:escvar(r)
+  let r = fnamemodify(a:r,':~')
+  let r = substitute(r,'\W','\="_".char2nr(submatch(0))."_"','g')
+  let r = substitute(r,'^\d','_&','')
+  return r
+endfunction
+
+function! s:Detect(filename)
+  let fn = substitute(fnamemodify(a:filename,":p"),'\c^file://','','')
+  let sep = matchstr(fn,'^[^\\/]\{3,\}\zs[\\/]')
+  if sep != ""
+    let fn = getcwd().sep.fn
+  endif
+  let ofn = ""
+  " Look through the parent folders to see if a _posts folder exists, if so
+  " assume this is a jekyll project.
+  while fn != ofn
+    if isdirectory(fn . "/_posts")
+      return s:BufInit(fn)
+    endif
+    let ofn = fn
+    let fn = fnamemodify(fn,':h')
+  endwhile
+  return 0
+endfunction
+
+function! s:BufInit(path)
+  let b:jekyll_root = a:path
+  if !exists("g:autoloaded_jekyll") && v:version >= 700
+    runtime! autoload/jekyll.vim
+  endif
 endfunction
 
 " Commands
@@ -52,22 +88,35 @@ function JekyllPost(title)
       let title = input("Post title: ")
     endif
     if title != ''
-        let file_name = strftime("%Y-%m-%d-") . s:EscapeTitle(title) . "." . g:jekyll_post_suffix
+        let file_name = strftime("%Y-%m-%d-") . s:esctitle(title) . "." . g:jekyll_post_suffix
         echo "Making that post " . file_name
         exe "e " . g:jekyll_path . "/_posts/" . file_name
-        let err = append(0, ['---', 'layout: post', 'title: "' . title . '"', 'published: false', '---', ''])
+        let err = append(0, ['---', 'layout: post', 'title: "' . title . '"', 'published: true', '---', ''])
     else
-        call s:EchoError("You must specify a title")
+        call s:error("You must specify a title")
     endif
 endfunction
 command! -nargs=? JekyllPost :call JekyllPost(<q-args>)
 
 "function JekyllPublish()
 "    if (!exists("g:loaded_fugitive") || !g:loaded_fugitive)
-"        call s:EchoError("Fugitive.vim is required for this, you can get it at github.com/tpope/vim-fugitive/")
+"        call s:error("Fugitive.vim is required for this, you can get it at github.com/tpope/vim-fugitive/")
 "    endif
 "endfunction
 "command! -nargs=? JekyllPublish :call JekyllPublish()
+
+
+" Initialization {{{1
+
+augroup jekyllPluginDetect
+  autocmd!
+  autocmd BufNewFile,BufRead * call s:Detect(expand("<afile>:p"))
+  autocmd VimEnter * if expand("<amatch>") == "" && !exists("b:jekyll_root") | call s:Detect(getcwd()) | endif
+augroup END
+
+command! -bar -bang -nargs=* -complete=dir Rails :if s:autoload()|call rails#new_app_command(<bang>0,<f-args>)|endif
+
+" }}}1
 
 let &cpo = s:cpo_save
 " }}}1
