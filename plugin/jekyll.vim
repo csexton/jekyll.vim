@@ -23,9 +23,6 @@ if !exists('g:jekyll_post_suffix')
     let g:jekyll_post_suffix = "markdown"
 endif
 
-" Syntax highlighting for YAML front matter
-"execute "autocmd BufNewFile,BufRead " . g:jekyll_path . "/* syn match jekyllYamlFrontmatter /\\%^---\\_.\\{-}---$/ contains=@Spell"
-"high link jekyllYamlFrontmatter Comment
 
 function s:esctitle(str)
     let str = a:str
@@ -98,23 +95,14 @@ function JekyllPost(title)
 endfunction
 command! -nargs=? JekyllPost :call JekyllPost(<q-args>)
 
-"function JekyllPublish()
-"    if (!exists("g:loaded_fugitive") || !g:loaded_fugitive)
-"        call s:error("Fugitive.vim is required for this, you can get it at github.com/tpope/vim-fugitive/")
-"    endif
-"endfunction
-"command! -nargs=? JekyllPublish :call JekyllPublish()
-
 
 " Initialization {{{1
-
 augroup jekyllPluginDetect
   autocmd!
-  autocmd BufNewFile,BufRead * call s:Detect(expand("<afile>:p"))
+  autocmd BufNew,BufNewFile,BufRead * call s:Detect(expand("<afile>:p"))
   autocmd VimEnter * if expand("<amatch>") == "" && !exists("b:jekyll_root") | call s:Detect(getcwd()) | endif
+  autocmd Syntax * if exists("b:jekyll_root") | syn match Comment /\%^---\_.\{-}---$/ contains=@Spell | endif
 augroup END
-
-command! -bar -bang -nargs=* -complete=dir Rails :if s:autoload()|call rails#new_app_command(<bang>0,<f-args>)|endif
 
 " }}}1
 

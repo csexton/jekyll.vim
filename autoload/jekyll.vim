@@ -8,10 +8,10 @@
 " Exit quickly when:
 " - this plugin was already loaded (or disabled)
 " - when 'compatible' is set
-if &cp || exists("g:autoloaded_rails")
+if &cp || exists("g:autoloaded_jekyll")
   finish
 endif
-let g:autoloaded_rails = '4.1'
+let g:autoloaded_jekyll= '1'
 
 let s:cpo_save = &cpo
 set cpo&vim
@@ -33,9 +33,6 @@ function JekyllPublish()
     "endif
 endfunction
 command! -buffer -nargs=? JekyllPublish :call JekyllPublish()
-
-
-" }}}1
 
 let &cpo = s:cpo_save
 
