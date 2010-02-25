@@ -71,6 +71,9 @@ function! s:BufInit(path)
   if !exists("g:autoloaded_jekyll") && v:version >= 700
     runtime! autoload/jekyll.vim
   endif
+  " FIXME: This should be handled by the autocmd, but we don't set jekyll_root
+  " until after that autocmd is run, so it won't match.
+  syn match Comment /\%^---\_.\{-}---$/ contains=@Spell
 endfunction
 
 " Commands
@@ -95,13 +98,12 @@ function JekyllPost(title)
 endfunction
 command! -nargs=? JekyllPost :call JekyllPost(<q-args>)
 
-
 " Initialization {{{1
 augroup jekyllPluginDetect
   autocmd!
-  autocmd BufNew,BufNewFile,BufRead * call s:Detect(expand("<afile>:p"))
+  autocmd BufNewFile,BufRead * call s:Detect(expand("<afile>:p"))
   autocmd VimEnter * if expand("<amatch>") == "" && !exists("b:jekyll_root") | call s:Detect(getcwd()) | endif
-  autocmd Syntax * if exists("b:jekyll_root") | syn match Comment /\%^---\_.\{-}---$/ contains=@Spell | endif
+  autocmd Syntax html,xml,markdown,textile if exists("b:jekyll_root") | syn match Comment /\%^---\_.\{-}---$/ contains=@Spell | endif
 augroup END
 
 " }}}1
