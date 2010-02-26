@@ -23,7 +23,6 @@ if !exists('g:jekyll_post_suffix')
   let g:jekyll_post_suffix = "markdown"
 endif
 
-
 function s:esctitle(str)
   let str = a:str
   let str = tolower(str)
