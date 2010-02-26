@@ -8,7 +8,7 @@
 " - this plugin was already loaded (or disabled)
 " - when 'compatible' is set
 if (exists("g:loaded_jekyll") && g:loaded_jekyll) || &cp
-    finish
+  finish
 endif
 let g:loaded_jekyll = 1
 
@@ -16,21 +16,21 @@ let s:cpo_save = &cpo
 set cpo&vim
 
 if !exists('g:jekyll_path')
-    let g:jekyll_path = $HOME . "/src/blog"
+  let g:jekyll_path = $HOME . "/src/blog"
 endif
 
 if !exists('g:jekyll_post_suffix')
-    let g:jekyll_post_suffix = "markdown"
+  let g:jekyll_post_suffix = "markdown"
 endif
 
 
 function s:esctitle(str)
-    let str = a:str
-    let str = tolower(str)
-    let str = substitute(str, ' ', '-', 'g')
-    let str = substitute(str, '"', '-', 'g')
-    let str = substitute(str, "'", '-', 'g')
-    return str
+  let str = a:str
+  let str = tolower(str)
+  let str = substitute(str, ' ', '-', 'g')
+  let str = substitute(str, '"', '-', 'g')
+  let str = substitute(str, "'", '-', 'g')
+  return str
 endfunction
 
 function! s:error(str)
@@ -78,23 +78,23 @@ endfunction
 
 " Commands
 function JekyllList()
-    exe "e " . g:jekyll_path . "/_posts"
+  exe "e " . g:jekyll_path . "/_posts"
 endfunction
 command! -nargs=0 JekyllList :call JekyllList()
 
 function JekyllPost(title)
-    let title = a:title
-    if title == ''
-      let title = input("Post title: ")
-    endif
-    if title != ''
-        let file_name = strftime("%Y-%m-%d-") . s:esctitle(title) . "." . g:jekyll_post_suffix
-        echo "Making that post " . file_name
-        exe "e " . g:jekyll_path . "/_posts/" . file_name
-        let err = append(0, ['---', 'layout: post', 'title: "' . title . '"', 'published: true', '---', ''])
-    else
-        call s:error("You must specify a title")
-    endif
+  let title = a:title
+  if title == ''
+    let title = input("Post title: ")
+  endif
+  if title != ''
+    let file_name = strftime("%Y-%m-%d-") . s:esctitle(title) . "." . g:jekyll_post_suffix
+    echo "Making that post " . file_name
+    exe "e " . g:jekyll_path . "/_posts/" . file_name
+    let err = append(0, ['---', 'layout: post', 'title: "' . title . '"', 'published: true', '---', ''])
+  else
+    call s:error("You must specify a title")
+  endif
 endfunction
 command! -nargs=? JekyllPost :call JekyllPost(<q-args>)
 
@@ -109,6 +109,5 @@ augroup END
 " }}}1
 
 let &cpo = s:cpo_save
-" }}}1
 
-" vim:set ft=vim ts=8 sw=4 sts=4:
+" vim:set ft=vim ts=2 sw=2 sts=2:

@@ -24,16 +24,15 @@ function! s:error(str)
   let v:errmsg = a:str
 endfunction
 " }}}1
-
-" Utility Functions {{{1
+" Commands {{{1
 function JekyllPublish()
-    call s:error("Not implemented")
-    "if (!exists("g:loaded_fugitive") || !g:loaded_fugitive)
-    "    call s:error("Fugitive.vim is required for this, you can get it at github.com/tpope/vim-fugitive/")
-    "endif
+  call s:error("Not implemented")
+  "if (!exists("g:loaded_fugitive") || !g:loaded_fugitive)
+  "    call s:error("Fugitive.vim is required for this, you can get it at github.com/tpope/vim-fugitive/")
+  "endif
 endfunction
 command! -buffer -nargs=? JekyllPublish :call JekyllPublish()
 
 let &cpo = s:cpo_save
 
-" vim:set sw=2 sts=2:
+" vim:set ft=vim ts=2 sw=2 sts=2:
