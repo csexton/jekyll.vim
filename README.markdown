@@ -16,12 +16,16 @@ Set the path to your Jekyll Blog in your vimrc:
 
     let g:jekyll_path = "/path/to/jekyll/blog"
 
-The default post suffix is "markdown". You can override this if you like:
+The default post suffix is "markdown" and the post status is published. You
+can override these if you like.
 
+Example:
     let g:jekyll_post_suffix = "textile"
+    let g:jekyll_post_published = "false"
 
 You may also want to ad a few mappings to stream line the behavior:
 
+    map <Leader>jb  :JekyllBuild<CR>
     map <Leader>jn  :JekyllPost<CR>
     map <Leader>jl  :JekyllList<CR>
 
@@ -30,6 +34,10 @@ By default all posts are created as drafts (published: false in the YAML), to pu
 
 Commands
 ========
+
+Build Jekyll site:
+
+    :JekyllBuild
 
 List Jekyll posts:
 
