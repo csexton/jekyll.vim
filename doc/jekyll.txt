@@ -23,6 +23,7 @@ Example:
     let g:jekyll_post_published = "false"
 
 You may also want to add a few mappings to stream line the behavior:
+    map <Leader>jb  :JekyllBuild<CR>
     map <Leader>jn  :JekyllPost<CR>
     map <Leader>jl  :JekyllList<CR>
 
@@ -30,6 +31,9 @@ By default all posts are created to be published (published: true in the YAML).
 
 ==============================================================================
 COMMANDS                                        *jekyll-commands*
+
+                                                *jekyll-:JekyllBuild*
+:JekyllBuild            Build Jekyll site.
 
                                                 *jekyll-:JekyllList*
 :JekyllList             List Jekyll posts.

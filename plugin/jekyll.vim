@@ -80,6 +80,11 @@ function! s:BufInit(path)
 endfunction
 
 " Commands
+function JekyllBuild(args)
+  exe "!jekyll " . a:args
+endfunction
+command! -nargs=* JekyllBuild :call JekyllBuild(<q-args>)
+
 function JekyllList()
   exe "e " . g:jekyll_path . "/_posts"
 endfunction
