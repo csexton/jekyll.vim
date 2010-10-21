@@ -23,6 +23,10 @@ if !exists('g:jekyll_post_suffix')
   let g:jekyll_post_suffix = "markdown"
 endif
 
+if !exists('g:jekyll_post_published')
+  let g:jekyll_post_published = "true"
+endif
+
 function s:esctitle(str)
   let str = a:str
   let str = tolower(str)
@@ -82,6 +86,7 @@ endfunction
 command! -nargs=0 JekyllList :call JekyllList()
 
 function JekyllPost(title)
+  let published = g:jekyll_post_published
   let title = a:title
   if title == ''
     let title = input("Post title: ")
@@ -90,7 +95,7 @@ function JekyllPost(title)
     let file_name = strftime("%Y-%m-%d-") . s:esctitle(title) . "." . g:jekyll_post_suffix
     echo "Making that post " . file_name
     exe "e " . g:jekyll_path . "/_posts/" . file_name
-    let err = append(0, ['---', 'layout: post', 'title: "' . title . '"', 'published: true', '---', ''])
+    let err = append(0, ['---', 'layout: post', 'title: "' . title . '"', 'published: ' . published, '---', ''])
   else
     call s:error("You must specify a title")
   endif
