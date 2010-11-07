@@ -27,6 +27,10 @@ if !exists('g:jekyll_post_published')
   let g:jekyll_post_published = "true"
 endif
 
+if !exists('g:jekyll_post_created')
+  let g:jekyll_post_created = ""
+endif
+
 function s:esctitle(str)
   let str = a:str
   let str = tolower(str)
@@ -92,6 +96,12 @@ command! -nargs=0 JekyllList :call JekyllList()
 
 function JekyllPost(title)
   let published = g:jekyll_post_published
+  let created = g:jekyll_post_created
+  if created == "epoch"
+    let created = localtime() 
+  elseif created != ""
+    let created = strftime(created)
+  endif
   let title = a:title
   if title == ''
     let title = input("Post title: ")
@@ -100,7 +110,14 @@ function JekyllPost(title)
     let file_name = strftime("%Y-%m-%d-") . s:esctitle(title) . "." . g:jekyll_post_suffix
     echo "Making that post " . file_name
     exe "e " . g:jekyll_path . "/_posts/" . file_name
-    let err = append(0, ['---', 'layout: post', 'title: "' . title . '"', 'published: ' . published, '---', ''])
+
+    let template = ["---", "layout: post", "title: \"" . title . "\"", "published: " . published]
+    if created != ""
+      call add(template, "created:  "  . created)
+    endif
+    call extend(template,["---", ""])
+
+    let err = append(0, template)
   else
     call s:error("You must specify a title")
   endif
