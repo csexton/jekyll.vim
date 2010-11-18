@@ -31,6 +31,10 @@ if !exists('g:jekyll_post_created')
   let g:jekyll_post_created = ""
 endif
 
+if !exists('g:jekyll_prompt_tags')
+  let g:jekyll_prompt_tags = ""
+endif
+
 function s:esctitle(str)
   let str = a:str
   let str = tolower(str)
@@ -97,6 +101,8 @@ command! -nargs=0 JekyllList :call JekyllList()
 function JekyllPost(title)
   let published = g:jekyll_post_published
   let created = g:jekyll_post_created
+  let tags = g:jekyll_prompt_tags
+
   if created == "epoch"
     let created = localtime() 
   elseif created != ""
@@ -106,6 +112,9 @@ function JekyllPost(title)
   if title == ''
     let title = input("Post title: ")
   endif
+  if tags != ""
+    let tags = input("Post tags: ")
+  endif
   if title != ''
     let file_name = strftime("%Y-%m-%d-") . s:esctitle(title) . "." . g:jekyll_post_suffix
     echo "Making that post " . file_name
@@ -114,6 +123,9 @@ function JekyllPost(title)
     let template = ["---", "layout: post", "title: \"" . title . "\"", "published: " . published]
     if created != ""
       call add(template, "created:  "  . created)
+    endif
+    if tags != ""
+      call add(template, "tags: [" . tags . "]")
     endif
     call extend(template,["---", ""])
 
