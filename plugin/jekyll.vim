@@ -31,12 +31,16 @@ if !exists('g:jekyll_post_created')
   let g:jekyll_post_created = ""
 endif
 
+if !exists('g:jekyll_title_pattern')
+  let g:jekyll_title_pattern = "[ '\"]"
+endif
+
 function s:esctitle(str)
   let str = a:str
   let str = tolower(str)
-  let str = substitute(str, ' ', '-', 'g')
-  let str = substitute(str, '"', '-', 'g')
-  let str = substitute(str, "'", '-', 'g')
+  let str = substitute(str, g:jekyll_title_pattern, '-', 'g')
+  let str = substitute(str, '\(--\)\+', '-', 'g')
+  let str = substitute(str, '\(^-\|-$\)', '', 'g')
   return str
 endfunction
 
