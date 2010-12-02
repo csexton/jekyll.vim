@@ -16,8 +16,9 @@ Example:
     let g:jekyll_path = "/path/to/jekyll/blog"
 
 The default post suffix is "markdown" and the post status is published. You
-can override these if you like. You can also have a date/time automatically
-added to the YAML Matter or enable a prompt for post tags.
+can override these if you like. You can have a date/time automatically added
+to the YAML Matter, or enable a prompt for post tags and/or post categories 
+during create.
 
 Example:
     let g:jekyll_post_suffix = "textile"
@@ -25,6 +26,7 @@ Example:
     let g:jekyll_post_created = "epoch"
     let g:jekyll_post_created = "%D %T"
     let g:jekyll_prompt_tags = "true"
+    let g:jekyll_prompt_categories = "true"
 
 You may also want to add a few mappings to stream line the behavior:
     map <Leader>jb  :JekyllBuild<CR>
