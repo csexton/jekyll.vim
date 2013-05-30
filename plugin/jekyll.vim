@@ -99,7 +99,7 @@ endfunction
 function JekyllBuild(args)
   let s:origdir = getcwd()
   exe "cd " . g:jekyll_path
-  exe "!jekyll " . a:args
+  exe "!jekyll build " . a:args
   exe "cd " . s:origdir
   unlet s:origdir
 endfunction
